@@ -41,7 +41,7 @@ const RestaurantPage = ({restaurantData}) => {
     const { title, excerpt, featuredImage, restaurantTypes, restaurantInformation } = restaurantData;
     const { location, contact, hours, menu } = restaurantInformation;
     const { streetAddress, city, state, zipCode } = location;
-    const { phoneNumber, email } = contact;
+    const { phoneNumber, emailAddress } = contact;
     const { monday, tuesday, wednesday, thursday, friday, saturday, sunday } = hours;
     const types = restaurantTypes.edges.map((type) => type.node.name).join(', ');
     return (
@@ -88,62 +88,62 @@ const RestaurantPage = ({restaurantData}) => {
                         <Heading level="2" marginBottom="1">Contact</Heading>
                         <Paragraph marginBottom={2}>
                             {phoneNumber}<br />
-                            <a href={`mailto:${email}`}>{email}</a>
+                            <a href={`mailto:${emailAddress}`}>{emailAddress}</a>
                         </Paragraph>
                         <Heading level="2" marginBottom="1">Hours</Heading>
                         <Paragraph marginBottom={2}>
                             {
-                                monday.status 
+                                monday.openTime 
                                 ?
-                                    <Fragment>Monday: {monday.open} - {monday.close}<br /></Fragment>
+                                    <Fragment>Monday: {monday.openTime} - {monday.closeTime}<br /></Fragment>
                                 :
                                     <Fragment>Monday: Closed<br /></Fragment>
 
                             }
                             {
-                                tuesday.status 
+                                tuesday.openTime 
                                 ?
-                                    <Fragment>Tuesday: {tuesday.open} - {tuesday.close}<br /></Fragment>
+                                    <Fragment>Tuesday: {tuesday.openTime} - {tuesday.closeTime}<br /></Fragment>
                                 :
                                     <Fragment>Tuesday: Closed<br /></Fragment>
 
                             }
                             {
-                                wednesday.status 
+                                wednesday.openTime 
                                 ?
-                                    <Fragment>Wednesday: {wednesday.open} - {wednesday.close}<br /></Fragment>
+                                    <Fragment>Wednesday: {wednesday.openTime} - {wednesday.closeTime}<br /></Fragment>
                                 :
                                     <Fragment>Wednesday: Closed<br /></Fragment>
 
                             }
                             {
-                                thursday.status 
+                                thursday.openTime 
                                 ?
-                                    <Fragment>Thursday: {thursday.open} - {thursday.close}<br /></Fragment>
+                                    <Fragment>Thursday: {thursday.openTime} - {thursday.closeTime}<br /></Fragment>
                                 :
                                     <Fragment>Thursday: Closed<br /></Fragment>
 
                             }
                             {
-                                friday.status 
+                                friday.openTime 
                                 ?
-                                    <Fragment>Friday: {friday.open} - {friday.close}<br /></Fragment>
+                                    <Fragment>Friday: {friday.openTime} - {friday.closeTime}<br /></Fragment>
                                 :
                                     <Fragment>Friday: Closed<br /></Fragment>
 
                             }
                             {
-                                saturday.status 
+                                saturday.openTime 
                                 ?
-                                    <Fragment>Saturday: {saturday.open} - {saturday.close}<br /></Fragment>
+                                    <Fragment>Saturday: {saturday.openTime} - {saturday.closeTime}<br /></Fragment>
                                 :
                                     <Fragment>Saturday: Closed<br /></Fragment>
 
                             }
                             {
-                                sunday.status 
+                                sunday.openTime 
                                 ?
-                                    <Fragment>Sunday: {sunday.open} - {sunday.close}<br /></Fragment>
+                                    <Fragment>Sunday: {sunday.openTime} - {sunday.closeTime}<br /></Fragment>
                                 :
                                     <Fragment>Sunday: Closed</Fragment>
 
