@@ -2,31 +2,37 @@ import { useState } from 'react';
 import RestaurantItem from '../components/RestaurantItem';
 import Layout from "../components/Layout";
 import Showcase from "../components/Showcase";
-import { getAllRestaurants } from '../lib/api'
+import { getAllRestaurants, getAllRestaurantTypes } from '../lib/api'
 import Container from '../components/Container';
 import Grid from '../components/Grid';
-
+import Button from '../components/Button';
+import Heading from '../components/Heading';
+import Filters from '../components/Filters';
 export async function getStaticProps() {
   const restaurants = await getAllRestaurants();
- 
+  const restaurantTypes = await getAllRestaurantTypes();
   return {
     props: {
-      restaurants
+      restaurants,
+      restaurantTypes
     }, // will be passed to the page component as props
   }
 }
 
-const HomePage = ({restaurants}) => {
-  const [restaurantsList, setRestaurantsList] = useState(restaurants);
-  
-  // {
-  //   restaurantsList.map((restaurant, index) => {
-  //     const {title} = restaurant.node;
-  //     console.log(title);
-  //     // return <p key={index}>{title}</p>
-  //   })
-  // }
-
+const HomePage = ({ restaurants, restaurantTypes }) => {
+  const [activeCategory, setActiveCategory] = useState("All");
+  const filteredRestaurants = restaurants.filter((restaurant) => {
+    if (activeCategory === "All") {
+      return restaurant;
+    } 
+    if (restaurant.node.restaurantTypes.edges.length > 0) {
+      return restaurant.node.restaurantTypes.edges[0].node.name === activeCategory ? restaurant : false;
+      // restaurant.node.restaurantTypes.edges.map((edge) => {
+      //   console.log(edge.node.name === activeCategory ? restaurant : false)
+      //   return edge.node.name === activeCategory ? restaurant : false;
+      // })
+    }
+  })
   return <Layout>
     <Showcase 
       title="A Guide to the Best Restaurants in Syracuse"
@@ -35,7 +41,12 @@ const HomePage = ({restaurants}) => {
     />
     <section>
       <Container>
-        <Grid data={restaurants}/>
+        <Filters 
+          activeCategory={activeCategory}
+          setActiveCategory={setActiveCategory}
+          categories={restaurantTypes}
+        />
+        <Grid data={filteredRestaurants}/>
       </Container>
     </section>
     
@@ -43,15 +54,3 @@ const HomePage = ({restaurants}) => {
 }
 
 export default HomePage;
-
-
-{/* <section>
-    <h1>Syracuse Restaurants</h1>
-      {
-        restaurants.map((restaurant, index) => {
-          return (
-            <RestaurantItem key={index} data={restaurant} />
-          )
-        })
-      }
-    </section> */}
