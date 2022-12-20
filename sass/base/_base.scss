@@ -1,0 +1,21 @@
+@use '../abstracts/vars';
+
+h1, h2, h3, h4, h5, h6, p, ul, ol, dl, dd, blockquote, figure, hr, fieldset, legend, pre, textarea, iframe, address, table, caption, th, td, form, input, button, select, optgroup, option, textarea, details, summary, menu, nav, section, article, aside, footer, header, main, div {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+* {
+    box-sizing: border-box; // invert padding
+}
+
+img {
+    vertical-align: top;
+}
+
+body {
+    background-color: white;
+    color: black;
+    font-family: vars.$font_primary;
+}
